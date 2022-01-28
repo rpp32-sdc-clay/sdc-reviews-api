@@ -1,0 +1,22 @@
+{
+  "name": "sdc-reviews-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "schema.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rpp32-sdc-clay/sdc-reviews-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rpp32-sdc-clay/sdc-reviews-api/issues"
+  },
+  "homepage": "https://github.com/rpp32-sdc-clay/sdc-reviews-api#readme",
+  "dependencies": {
+    "mongoose": "^6.1.8"
+  }
+}
