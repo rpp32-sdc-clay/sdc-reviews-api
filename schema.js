@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/sdc')
 var db = mongoose.connection;
 
-const schema = new mongoose.Schema({
+db.on('connection', () => {
+  console.log('Connected!')
+})
+
+const reviewSchema = new mongoose.Schema({
   review_id: {
     type: Number,
     required: true
@@ -39,5 +43,37 @@ const schema = new mongoose.Schema({
         required: true
       }
     }
+  ],
+  characteristics: [
+    {
+      characteristic_name: String,
+      characteristic_id: Number,
+      characteristic_value: Number
+    }
   ]
 })
+
+const metaSchema = new mongoose.Schema({
+  product_id: {
+    type: Number,
+    required: true
+  },
+  ratings: [{
+    1: Number,
+    2: Number,
+    3: Number,
+    4: Number,
+    5: Number
+  }],
+  recommended: [{
+    true: Number,
+    false: Number
+  }],
+  characteristics: [{
+    characteristic_name: String,
+    characteristic_id: Number,
+    characteristic_value: Number
+  }]
+})
+
+const Review = mongoose.model('Reviews', reviewSchema);

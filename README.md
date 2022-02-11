@@ -1,1 +1,0 @@
-# sdc-reviews-api
