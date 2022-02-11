@@ -4,7 +4,7 @@
   "description": "",
   "main": "schema.js",
   "scripts": {
-    "etl": "nodemon --max-old-space-size=12000 etl.js",
+    "start": "nodemon api.js",
     "test": "jest --coverage"
   },
   "repository": {
