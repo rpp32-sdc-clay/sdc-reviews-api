@@ -7,6 +7,54 @@ db.on('connection', () => {
   console.log('Connected!')
 })
 
+//ideal schema
+
+// const idealSchema = new mongoose.Schema({
+//   review_id: {
+//     type: Number,
+//     required: true
+//   },
+//   product_id: {
+//     type: Number,
+//     required: true
+//   },
+//   reviewer_name: String,
+//   date: {
+//     type: Date,
+//     default: Date.now
+//   },
+//   rating: {
+//     type: Number,
+//     required: true
+//   },
+//   summary: {
+//     type: String,
+//     required: true
+//   },
+//   body: String,
+//   response: String,
+//   helpfulness: Number,
+//   photos: [
+//     {
+//       photo_id: {
+//         type: Number,
+//         required: true
+//       },
+//       url: {
+//         type: String,
+//         required: true
+//       }
+//     }
+//   ],
+//   characteristics: [
+//     {
+//       characteristic_name: String,
+//       characteristic_id: Number,
+//       characteristic_value: Number
+//     }
+//   ]
+// })
+
 const reviewSchema = new mongoose.Schema({
   review_id: {
     type: Number,
@@ -31,26 +79,52 @@ const reviewSchema = new mongoose.Schema({
   },
   body: String,
   response: String,
-  helpfulness: Number,
-  photos: [
-    {
-      photo_id: {
-        type: Number,
-        required: true
-      },
-      url: {
-        type: String,
-        required: true
-      }
-    }
-  ],
-  characteristics: [
-    {
-      characteristic_name: String,
-      characteristic_id: Number,
-      characteristic_value: Number
-    }
-  ]
+  helpfulness: Number
+})
+
+const photoSchema = new mongoose.Schema({
+  photo_id: {
+    type: Number,
+    required: true
+  },
+  url: {
+    type: String,
+    required: true
+  }
+})
+
+const characteristicsSchema = new mongoose.Schema({
+  characteristic_id: {
+    type: Number,
+    required: true
+  },
+  product_id: {
+    type: Number,
+    required: true
+  },
+  name: {
+    type: String,
+    required: true
+  }
+})
+
+const characteristicReviewsSchema = new mongoose.Schema({
+  id: {
+    type: Number,
+    required: true
+  },
+  characteristic_id: {
+    type: Number,
+    required: true
+  },
+  review_id: {
+    type: Number,
+    required: true
+  },
+  value: {
+    type: Number,
+    required: true
+  }
 })
 
 const metaSchema = new mongoose.Schema({
@@ -76,4 +150,9 @@ const metaSchema = new mongoose.Schema({
   }]
 })
 
-const Review = mongoose.model('Reviews', reviewSchema);
+const Reviews = mongoose.model('Reviews', reviewSchema);
+const Characteristics = mongoose.model('Characteristic Reviews', characteristicsSchema);
+const CharacteristicReviews = mongoose.model('Characteristic Reviews', characteristicReviewsSchema);
+const Photos = mongoose.model('Photos', photoSchema);
+
+export default {Reviews, Characteristics, CharacteristicReviews, Photos}
