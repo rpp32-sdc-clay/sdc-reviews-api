@@ -1,10 +1,14 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/sdc')
-var db = mongoose.connection;
+mongoose.connect('mongodb://localhost:27017/sdc', { useUnifiedTopology: true })
+const db = mongoose.connection;
 
-db.on('connection', () => {
+db.on('open', () => {
   console.log('Connected!')
+})
+
+db.on('error', () => {
+  console.log('Error!')
 })
 
 //ideal schema
@@ -93,39 +97,50 @@ const photoSchema = new mongoose.Schema({
   }
 })
 
-const characteristicsSchema = new mongoose.Schema({
-  characteristic_id: {
+const CharactersticsCombinedSchema = new mongoose.Schema({
+  photo_id: {
     type: Number,
     required: true
   },
-  product_id: {
-    type: Number,
-    required: true
-  },
-  name: {
+  url: {
     type: String,
     required: true
   }
 })
 
-const characteristicReviewsSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    required: true
-  },
-  characteristic_id: {
-    type: Number,
-    required: true
-  },
-  review_id: {
-    type: Number,
-    required: true
-  },
-  value: {
-    type: Number,
-    required: true
-  }
-})
+// const characteristicsSchema = new mongoose.Schema({
+//   characteristic_id: {
+//     type: Number,
+//     required: true
+//   },
+//   product_id: {
+//     type: Number,
+//     required: true
+//   },
+//   name: {
+//     type: String,
+//     required: true
+//   }
+// })
+
+// const characteristicReviewsSchema = new mongoose.Schema({
+//   id: {
+//     type: Number,
+//     required: true
+//   },
+//   characteristic_id: {
+//     type: Number,
+//     required: true
+//   },
+//   review_id: {
+//     type: Number,
+//     required: true
+//   },
+//   value: {
+//     type: Number,
+//     required: true
+//   }
+// })
 
 const metaSchema = new mongoose.Schema({
   product_id: {
@@ -151,8 +166,22 @@ const metaSchema = new mongoose.Schema({
 })
 
 const Reviews = mongoose.model('Reviews', reviewSchema);
-const Characteristics = mongoose.model('Characteristic Reviews', characteristicsSchema);
-const CharacteristicReviews = mongoose.model('Characteristic Reviews', characteristicReviewsSchema);
 const Photos = mongoose.model('Photos', photoSchema);
+const CharacteristicsCombined = mongoose.model('characteristics_combined', CharactersticsCombinedSchema);
 
-export default {Reviews, Characteristics, CharacteristicReviews, Photos}
+Reviews.getReviews = (err, id) => {
+  if (err) {
+    reject(err)
+  } else {
+    if (id) {
+      return Reviews.find({product_id: id})
+    } else {
+      return Reviews.find({}).limit(20)
+    }
+  }
+}
+
+  module.exports = { db, Reviews }
+// module.exports ={ db: db, Reviews: mongoose.models.Reviews || reviewSchema,
+//   Characteristics: mongoose.models.Characteristics || characteristicsSchema,
+//   CharacteristicReviews: mongoose.models.Characteristic_Reviews, Photos }
