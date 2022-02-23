@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost:27017/sdc', { useUnifiedTopology: true })
 const db = mongoose.connection;
+mongoose.set('useFindAndModify', false);
 
 db.on('open', () => {
   console.log('Connected!')
@@ -92,6 +93,17 @@ Reviews.getReviews = (err, id) => {
       return Reviews.find({}).limit(20)
     }
   }
+}
+
+Reviews.markHelpful = (productId) => {
+  //not updating in DB
+    return Reviews.findOneAndUpdate({id: productId}, {$inc: {helpfulness: 1}}, (err, doc) => {
+      if (err) {
+        reject(err);
+      } else {
+        return doc;
+      }
+    })
 }
 
   module.exports = { db, Reviews }
