@@ -35,21 +35,20 @@ class RR extends React.Component {
     })
     .then((results) => {
       this.setState({reviews: results.data})
-      // if (results.data.results.length > this.state.count - 1) {
-      //   let limitResults = results.data.results;
-      //   limitResults.splice(this.state.count - 1);
-      //   this.setState({
-      //     showMore: true,
-      //     reviews: limitResults
-      //   })
-      // } else {
-      //   this.setState({
-      //     reviews: results.data.results,
-      //     showMore: false
-      //   })
-      // }
-      // return true;
-      // console.log('this.state.reviews: ', this.state.reviews);
+      if (results.data.results.length > this.state.count - 1) {
+        let limitResults = results.data.results;
+        limitResults.splice(this.state.count - 1);
+        this.setState({
+          showMore: true,
+          reviews: limitResults
+        })
+      } else {
+        this.setState({
+          reviews: results.data.results,
+          showMore: false
+        })
+      }
+      return true;
     })
     .catch((err) => {
       console.log('API get /reviews failed: ', err);
@@ -169,9 +168,11 @@ class RR extends React.Component {
     }
     var filteredReviews = this.state.ratingFilter.length > 0 ? this.state.reviews.filter(review => this.state.ratingFilter.includes(review.rating)) : this.state.reviews;
     var display;
-    if (!(this.state.reviews.length > 0 && Object.keys(this.state.meta).length > 0 && this.state.productName !== '')) {
-      display = <p>Loading...</p>;
-    } else {
+
+    //Temporarily removed if statement which shows "loading" if not everything is in the app state for testing
+    // if (!(this.state.reviews.length > 0 && Object.keys(this.state.meta).length > 0 && this.state.productName !== '')) {
+    //   display = <p>Loading...</p>;
+    // } else {
       // display everything
       display =
       <div className="RandR">
@@ -218,7 +219,7 @@ class RR extends React.Component {
           </div>
         </div>
       </div>
-    }
+    // }
 
 
     return (

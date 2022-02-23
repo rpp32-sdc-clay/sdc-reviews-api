@@ -1,8 +1,0 @@
-db.characteristic_reviews.aggregate(
-  [
-    {$limit: 20},
-    {$lookup: {from: 'characteristics', localField: 'characteristic_id', foreignField: 'characteristic_id', as: 'info'}},
-    {$replaceRoot: {newRoot: { $mergeObjects: [ { $arrayElemAt: [ "$info", 0 ] }, "$$ROOT" ] }}},
-    {$project: {info: 0}},
-    {$out: 'characteristic_reviews_test'}]
-    )

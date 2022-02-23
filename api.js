@@ -19,7 +19,8 @@ app.get('/reviews/:product_id', (req, res) => {
     res.sendStatus(500)
   })
   .then((data) => {
-    res.send(data.data);
+    console.log(data)
+    res.send(data);
   })
 })
 
