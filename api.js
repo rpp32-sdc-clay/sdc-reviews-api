@@ -1,4 +1,5 @@
 const express = require('express');
+const _ = require('underscore');
 const path = require('path');
 const app = express()
 const port = 3000
@@ -14,23 +15,34 @@ app.get('/reviews/:product_id', (req, res) => {
   return new Promise((resolve, reject) => {
     resolve(database.Reviews.getReviews(null, req.query.product_id));
   })
-  .catch((err) => {
-    console.log('Error!', err)
-    res.sendStatus(500)
-  })
-  .then((data) => {
-    res.send(data);
-  })
+    .catch((err) => {
+      console.log('Error!', err)
+      res.sendStatus(500)
+    })
+    .then((data) => {
+      res.send(data);
+    })
 })
 
 //get meta review info for individual products
 app.get('/reviews/meta/:product_id', (req, res) => {
-//to do later
+  //Optimize later with aggregation
+  var productId = parseInt(req.params.product_id)
+  return new Promise((resolve, reject) => {
+    resolve(database.Reviews.getReviewMeta(productId));
+  })
+    .catch((err) => {
+      console.log('Error!', err)
+      res.sendStatus(500)
+    })
+    .then((data) => {
+      console.log(data)
+    })
 })
 
 //post new review
 app.post('/reviews', (req, res) => {
-//to do later
+  //to do later
 })
 
 //mark review as helpful
@@ -38,18 +50,18 @@ app.put('/reviews/:review_id/helpful', (req, res) => {
   return new Promise((resolve, reject) => {
     resolve(database.Reviews.markHelpful(parseInt(req.params.review_id)))
   })
-  .catch((err) => {
-    console.log('Error!', err);
-    res.sendStatus(500);
-  })
-  .then((data) => {
-    res.send(data)
-  })
+    .catch((err) => {
+      console.log('Error!', err);
+      res.sendStatus(500);
+    })
+    .then((data) => {
+      res.send(data)
+    })
 })
 
 //mark review as reported
 app.put('/reviews/:review_id/report', (req, res) => {
-//to do later
+  //to do later
 })
 
 app.listen(port, () => {

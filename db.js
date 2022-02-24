@@ -95,9 +95,20 @@ Reviews.getReviews = (err, id) => {
   }
 }
 
+
+Reviews.getReviewMeta = (productId) => {
+  return Reviews.aggregate([{$match: {'product_id': productId}},{$project: {rating: 1, recommend: 1, characteristics: 1}}], (err, docs) => {
+    if (err) {
+      reject(err);
+    } else {
+      return docs;
+    }
+  })
+}
+
 Reviews.markHelpful = (productId) => {
   //not updating in DB
-    return Reviews.findOneAndUpdate({id: productId}, {$inc: {helpfulness: 1}}, (err, doc) => {
+    return Reviews.updateOne({id: productId}, {$inc: {helpfulness: 1}}, (err, doc) => {
       if (err) {
         reject(err);
       } else {
@@ -105,6 +116,7 @@ Reviews.markHelpful = (productId) => {
       }
     })
 }
+
 
   module.exports = { db, Reviews }
 // module.exports ={ db: db, Reviews: mongoose.models.Reviews || reviewSchema,
