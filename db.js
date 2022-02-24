@@ -56,7 +56,8 @@ const reviewSchema = new mongoose.Schema({
       characteristic_id: Number,
       characteristic_value: Number
     }
-  ]
+  ],
+  reported: Boolean
 })
 
 const metaSchema = new mongoose.Schema({
@@ -79,7 +80,8 @@ const metaSchema = new mongoose.Schema({
     characteristic_name: String,
     characteristic_id: Number,
     characteristic_value: Number
-  }]
+  }],
+  reported: String
 })
 
 const Reviews = mongoose.model('Reviews', reviewSchema);
@@ -87,7 +89,7 @@ const Reviews = mongoose.model('Reviews', reviewSchema);
 Reviews.getReviews = (id) => {
   return Reviews.find({product_id: id}, (err) => {
     if (err) {
-      throw err
+      throw err;
     }
   })
 }
@@ -144,13 +146,13 @@ Reviews.getReviewMeta = (productId) => {
     for (var key in meta.characteristics) {
       meta.characteristics[key].value = Math.round(meta.characteristics[key].value.reduce((acc, add) => acc + add)/meta.characteristics[key].value.length * 1000)/1000
     }
-    return meta
+    return meta;
   })
 }
 
-Reviews.markHelpful = (productId) => {
+Reviews.markHelpful = (reviewId) => {
   //not updating in DB
-    return Reviews.updateOne({id: productId}, {$inc: {helpfulness: 1}}, (err, doc) => {
+    return Reviews.updateOne({id: reviewId}, {$inc: {helpfulness: 1}}, (err, doc) => {
       if (err) {
         reject(err);
       } else {
