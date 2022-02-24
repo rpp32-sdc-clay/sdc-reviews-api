@@ -87,7 +87,7 @@ const metaSchema = new mongoose.Schema({
 const Reviews = mongoose.model('Reviews', reviewSchema);
 
 Reviews.getReviews = (id) => {
-  return Reviews.find({product_id: id}, (err) => {
+  return Reviews.find({product_id: id, reported: 'false'}, (err) => {
     if (err) {
       throw err;
     }
