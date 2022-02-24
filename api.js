@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
 //get all reviews
 app.get('/reviews/:product_id', (req, res) => {
   return new Promise((resolve, reject) => {
-    resolve(database.Reviews.getReviews(null, req.query.product_id));
+    resolve(database.Reviews.getReviews(req.query.product_id));
   })
     .catch((err) => {
       console.log('Error!', err)
@@ -67,3 +67,4 @@ app.put('/reviews/:review_id/report', (req, res) => {
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`)
 })
+module.exports.app = app;

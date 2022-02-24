@@ -1,3 +1,7 @@
+
+/*
+ * @jest-environment jsdom
+ */
 import React from 'react'
 import {render, fireEvent, screen} from '@testing-library/react';
 import axios from 'axios';

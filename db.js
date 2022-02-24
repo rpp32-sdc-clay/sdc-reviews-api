@@ -84,16 +84,12 @@ const metaSchema = new mongoose.Schema({
 
 const Reviews = mongoose.model('Reviews', reviewSchema);
 
-Reviews.getReviews = (err, id) => {
-  if (err) {
-    reject(err)
-  } else {
-    if (id) {
-      return Reviews.find({product_id: id})
-    } else {
-      return Reviews.find({}).limit(20)
+Reviews.getReviews = (id) => {
+  return Reviews.find({product_id: id}, (err) => {
+    if (err) {
+      throw err
     }
-  }
+  })
 }
 
 
