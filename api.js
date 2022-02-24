@@ -61,7 +61,16 @@ app.put('/reviews/:review_id/helpful', (req, res) => {
 
 //mark review as reported
 app.put('/reviews/:review_id/report', (req, res) => {
-  //to do later
+  return new Promise((resolve, reject) => {
+    resolve(database.Reviews.markReported(parseInt(req.params.review_id)))
+  })
+    .catch((err) => {
+      console.log('Error!', err);
+      res.sendStatus(500);
+    })
+    .then((data) => {
+      res.send(data)
+  })
 })
 
 app.listen(port, () => {

@@ -87,7 +87,7 @@ const metaSchema = new mongoose.Schema({
 const Reviews = mongoose.model('Reviews', reviewSchema);
 
 Reviews.getReviews = (id) => {
-  return Reviews.find({product_id: id, reported: 'false'}, (err) => {
+  return Reviews.find({product_id: id}, (err) => {
     if (err) {
       throw err;
     }
@@ -153,6 +153,18 @@ Reviews.getReviewMeta = (productId) => {
 Reviews.markHelpful = (reviewId) => {
   //not updating in DB
     return Reviews.updateOne({id: reviewId}, {$inc: {helpfulness: 1}}, (err, doc) => {
+      if (err) {
+        reject(err);
+      } else {
+        return doc;
+      }
+    })
+}
+
+
+Reviews.markReported = (reviewId) => {
+  //not updating in DB
+    return Reviews.updateOne({id: reviewId}, {reported: 'true'}, (err, doc) => {
       if (err) {
         reject(err);
       } else {
