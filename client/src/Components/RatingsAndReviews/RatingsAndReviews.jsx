@@ -64,7 +64,7 @@ class RR extends React.Component {
       console.log(`API get /products/${this.props.currentProduct} failed: `, err);
     })
 
-    axios.get(`${this.props.apiUrl}/reviews/meta/?product_id=${this.props.currentProduct}`)
+    axios.get(`/reviews/meta/${this.props.currentProduct}`)
       .then((results) => {
         this.setState({
           meta: results.data
@@ -169,10 +169,10 @@ class RR extends React.Component {
     var filteredReviews = this.state.ratingFilter.length > 0 ? this.state.reviews.filter(review => this.state.ratingFilter.includes(review.rating)) : this.state.reviews;
     var display;
 
-    //Temporarily removed if statement which shows "loading" if not everything is in the app state for testing
-    // if (!(this.state.reviews.length > 0 && Object.keys(this.state.meta).length > 0 && this.state.productName !== '')) {
-    //   display = <p>Loading...</p>;
-    // } else {
+    //Temporarily removed  && this.state.productName !== '' from if statement so that product still shows despite not being integrated with other sdc apis
+    if (!(this.state.reviews.length > 0 && Object.keys(this.state.meta).length > 0)) {
+      display = <p>Loading...</p>;
+    } else {
       // display everything
       display =
       <div className="RandR">
@@ -219,7 +219,7 @@ class RR extends React.Component {
           </div>
         </div>
       </div>
-    // }
+    }
 
 
     return (
