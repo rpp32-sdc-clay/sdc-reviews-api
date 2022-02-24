@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const _ = require('underscore');
 
 mongoose.connect('mongodb://localhost:27017/sdc', { useUnifiedTopology: true })
 const db = mongoose.connection;
@@ -97,12 +98,57 @@ Reviews.getReviews = (err, id) => {
 
 
 Reviews.getReviewMeta = (productId) => {
-  return Reviews.aggregate([{$match: {'product_id': productId}},{$project: {rating: 1, recommend: 1, characteristics: 1}}], (err, docs) => {
+  //create meta object
+  var meta = {
+    product_id: productId,
+    ratings: {},
+    recommended: {
+      true: 0,
+      false: 0,
+    },
+    characteristics: {}
+  };
+  //aggregate reviews and only project rating, whether it's recommended, and characteristics
+  var reviews = Reviews.aggregate([{$match: {'product_id': productId}},{$project: {rating: 1, recommend: 1, "characteristics.name": 1, "characteristics.characteristic_id": 1, "characteristics.value": 1}}], (err, docs) => {
     if (err) {
-      reject(err);
-    } else {
-      return docs;
+      console.log(err)
+      throw err;
     }
+  })
+  return new Promise((resolve, reject) => {
+    resolve(reviews)
+  })
+  .then((docs)=> {
+    //for each document
+    docs.forEach((doc) => {
+      //if the meta object has the rating, increase it
+      if (meta.ratings[doc.rating]) {
+        meta.ratings[doc.rating]++
+      //otherwise set the rating to 1
+      } else {
+        meta.ratings[doc.rating] = 1
+      }
+      //add to number of whether the review is recommended or not
+      meta.recommended[doc.recommend]++
+      //combine the characteristics into a single characteristics object and add values to an array
+      doc.characteristics.forEach(char => {
+        if(meta.characteristics[char.name]) {
+          meta.characteristics[char.name].value.push(char.value)
+        } else {
+          meta.characteristics[char.name] = {
+            id: char.characteristic_id,
+            value: [char.value]
+          }
+        }
+      })
+    })
+  })
+  .then(() => {
+    //average and round the characteristics values
+    for (var key in meta.characteristics) {
+      meta.characteristics[key].value = Math.round(meta.characteristics[key].value.reduce((acc, add) => acc + add)/meta.characteristics[key].value.length * 1000)/1000
+    }
+    return meta
   })
 }
 
