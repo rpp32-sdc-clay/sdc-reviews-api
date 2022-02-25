@@ -28,11 +28,7 @@ class RR extends React.Component {
   componentDidMount() {
     var current = this.props.currentProduct;
     // axios.defaults.headers.common['Authorization'] = this.props.token;
-    axios.get(`/reviews/:product_id`, {
-      params: {
-        product_id: current
-      }
-    })
+    axios.get(`/reviews/${current}`)
     .then((results) => {
       this.setState({reviews: results.data})
       if (results.data.results.length > this.state.count - 1) {

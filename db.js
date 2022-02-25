@@ -81,7 +81,6 @@ const metaSchema = new mongoose.Schema({
     characteristic_id: Number,
     characteristic_value: Number
   }],
-  reported: String
 })
 
 const Reviews = mongoose.model('Reviews', reviewSchema);
@@ -173,6 +172,27 @@ Reviews.markReported = (reviewId) => {
     })
 }
 
+
+Reviews.markReported = (reviewId) => {
+  //not updating in DB
+    return Reviews.updateOne({id: reviewId}, {reported: 'true'}, (err, doc) => {
+      if (err) {
+        reject(err);
+      } else {
+        return doc;
+      }
+    })
+}
+
+Reviews.submitReview = (reviewObj) => {
+  Review.create(reviewObj, (err) => {
+    if (err) {
+      throw err;
+    } else {
+      console.log('Success!')
+    }
+  })
+}
 
   module.exports = { db, Reviews }
 // module.exports ={ db: db, Reviews: mongoose.models.Reviews || reviewSchema,

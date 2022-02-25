@@ -3,8 +3,10 @@ const _ = require('underscore');
 const path = require('path');
 const app = express()
 const port = 3000
+const cors = require('cors')
 const database = require('./db.js')
 
+app.use(cors())
 app.use("/", express.static(path.join(__dirname, 'client', 'dist')));
 app.get('/', (req, res) => {
   res.end()
@@ -13,13 +15,14 @@ app.get('/', (req, res) => {
 //get all reviews
 app.get('/reviews/:product_id', (req, res) => {
   return new Promise((resolve, reject) => {
-    resolve(database.Reviews.getReviews(req.query.product_id));
+    resolve(database.Reviews.getReviews(parseInt(req.params.product_id)))
   })
     .catch((err) => {
       console.log('Error!', err)
       res.sendStatus(500)
     })
     .then((data) => {
+      console.log(data)
       res.send(data);
     })
 })
@@ -42,7 +45,7 @@ app.get('/reviews/meta/:product_id', (req, res) => {
 
 //post new review
 app.post('/reviews', (req, res) => {
-  //to do later
+  console.log(req)
 })
 
 //mark review as helpful
@@ -74,6 +77,6 @@ app.put('/reviews/:review_id/report', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`)
+  console.log(`Listening at http://127.0.0.1:${port}`)
 })
 module.exports.app = app;

@@ -104,7 +104,7 @@ class NewReview extends React.Component {
     // axios.defaults.headers.common['Authorization'] = this.props.token;
     axios({
       method: 'post',
-      url: `${this.props.apiUrl}/reviews`,
+      url: `/reviews`,
       data: {
         product_id: this.props.productId,
         rating: this.state.rating,
