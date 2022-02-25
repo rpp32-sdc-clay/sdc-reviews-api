@@ -185,6 +185,27 @@ Reviews.submitReview = async (reviewObj) => {
   })
 }
 
+Reviews.markReported = (reviewId) => {
+  //not updating in DB
+    return Reviews.updateOne({id: reviewId}, {reported: 'true'}, (err, doc) => {
+      if (err) {
+        reject(err);
+      } else {
+        return doc;
+      }
+    })
+}
+
+Reviews.submitReview = (reviewObj) => {
+  Review.create(reviewObj, (err) => {
+    if (err) {
+      throw err;
+    } else {
+      console.log('Success!')
+    }
+  })
+}
+
   module.exports = { db, Reviews }
 // module.exports ={ db: db, Reviews: mongoose.models.Reviews || reviewSchema,
 //   Characteristics: mongoose.models.Characteristics || characteristicsSchema,
