@@ -3,7 +3,6 @@ const _ = require('underscore');
 
 mongoose.connect('mongodb://localhost:27017/sdc', { useUnifiedTopology: true })
 const db = mongoose.connection;
-mongoose.set('useFindAndModify', false);
 
 db.on('open', () => {
   console.log('Connected!')
@@ -14,9 +13,10 @@ db.on('error', () => {
 })
 
 const reviewSchema = new mongoose.Schema({
-  review_id: {
+  id: {
     type: Number,
-    required: true
+    required: true,
+    unique : true
   },
   product_id: {
     type: Number,
@@ -92,7 +92,7 @@ Reviews.getReviews = (id) => {
     } else {
       return docs;
     }
-  })
+  }).clone();
 }
 
 Reviews.getReviewMeta = (productId) => {
@@ -155,6 +155,8 @@ Reviews.markHelpful = (reviewId) => {
     Reviews.findOneAndUpdate({id: reviewId}, {$inc: {helpfulness: 1}}, (err, doc) => {
       if (err) {
         reject(err);
+      } else {
+        return doc;
       }
     })
 }
@@ -162,7 +164,7 @@ Reviews.markHelpful = (reviewId) => {
 
 Reviews.markReported = (reviewId) => {
   //not updating in DB
-    return Reviews.findOneAndUpdate({id: reviewId}, {reported: 'true'}, (err, doc) => {
+    Reviews.findOneAndUpdate({id: reviewId}, {reported: 'true'}, (err, doc) => {
       if (err) {
         reject(err);
       } else {
@@ -171,8 +173,10 @@ Reviews.markReported = (reviewId) => {
     })
 }
 
-Reviews.submitReview = (reviewObj) => {
-  Review.create(reviewObj, (err) => {
+Reviews.submitReview = async (reviewObj) => {
+  var id = await Reviews.estimatedDocumentCount({}) + 1;
+  reviewObj.id = id;
+  Reviews.create(reviewObj, (err) => {
     if (err) {
       throw err;
     } else {

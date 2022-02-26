@@ -3,10 +3,14 @@ const _ = require('underscore');
 const path = require('path');
 const app = express()
 const port = 3000
+const morgan = require('morgan');
 const cors = require('cors')
+const bodyParser = require('body-parser');
 const database = require('./db.js')
 
-app.use(cors())
+app.use(cors());
+app.use(morgan('dev'));
+app.use(bodyParser.json());
 app.use("/", express.static(path.join(__dirname, 'client', 'dist')));
 app.get('/', (req, res) => {
   res.end()
@@ -22,7 +26,6 @@ app.get('/reviews/:product_id', (req, res) => {
       res.sendStatus(500)
     })
     .then((data) => {
-      console.log('should be array of reviews', data)
       res.send(data);
     })
 })
@@ -45,7 +48,12 @@ app.get('/reviews/meta/:product_id', (req, res) => {
 
 //post new review
 app.post('/reviews', (req, res) => {
-  console.log(req)
+  return new Promise ((resolve, reject) => {
+    resolve(database.Reviews.submitReview(req.body));
+  })
+  .then((data) => {
+    console.log(data)
+  })
 })
 
 //mark review as helpful
