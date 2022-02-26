@@ -22,7 +22,7 @@ app.get('/reviews/:product_id', (req, res) => {
       res.sendStatus(500)
     })
     .then((data) => {
-      console.log(data)
+      console.log('should be array of reviews', data)
       res.send(data);
     })
 })
