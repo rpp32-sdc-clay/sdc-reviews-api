@@ -42,6 +42,7 @@ app.get('/reviews/meta/:product_id', (req, res) => {
       res.sendStatus(500)
     })
     .then((data) => {
+      console.log(data)
       res.send(data);
     })
 })

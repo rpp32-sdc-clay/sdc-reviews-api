@@ -122,21 +122,27 @@ Reviews.getReviewMeta = (productId) => {
     docs.forEach((doc) => {
       //if the meta object has the rating, increase it
       if (meta.ratings[doc.rating]) {
-        meta.ratings[doc.rating]++
+        meta.ratings[doc.rating]++;
       //otherwise set the rating to 1
       } else {
-        meta.ratings[doc.rating] = 1
+        if (doc.rating) {
+          meta.ratings[doc.rating] = 1;
+        }
       }
       //add to number of whether the review is recommended or not
-      meta.recommended[doc.recommend]++
+      if (doc.recommend) {
+        meta.recommended[doc.recommend]++;
+      }
       //combine the characteristics into a single characteristics object and add values to an array
       doc.characteristics.forEach(char => {
-        if(meta.characteristics[char.name]) {
+        if (meta.characteristics[char.name]) {
           meta.characteristics[char.name].value.push(char.value)
         } else {
-          meta.characteristics[char.name] = {
-            id: char.characteristic_id,
-            value: [char.value]
+          if (char.name) {
+            meta.characteristics[char.name] = {
+              id: char.characteristic_id,
+              value: [char.value]
+            }
           }
         }
       })
