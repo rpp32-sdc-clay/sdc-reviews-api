@@ -160,7 +160,7 @@ class NewReview extends React.Component {
       modal = null;
     } else {
       // Define Characteristics (dynamically) based on existing meta data
-      var charKeys = Object.keys(this.props.meta.characteristics).slice(0, Object.keys(this.props.meta.characteristics).length - 1);
+      var charKeys = Object.keys(this.props.meta.characteristics)
       var charRef = {
         Size: ['A size too small', 'Half a size too small', 'Perfect', 'Half a size too big', 'A size too wide'],
         Width: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],

@@ -37,7 +37,10 @@ const reviewSchema = new mongoose.Schema({
   },
   body: String,
   response: String,
-  helpfulness: Number,
+  helpfulness: {
+    type: Number,
+    default: 0
+  },
   photos: [
     {
       photo_id: {
