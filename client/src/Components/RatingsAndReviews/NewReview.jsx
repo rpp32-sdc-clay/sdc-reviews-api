@@ -22,6 +22,7 @@ class NewReview extends React.Component {
     this.onBodyChange = this.onBodyChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
     this.onImageChange = this.onImageChange.bind(this);
+    this.newReviewClickHandler = this.newReviewClickHandler.bind(this);
   }
 
   newReviewClickHandler() {
@@ -115,11 +116,6 @@ class NewReview extends React.Component {
         email: this.state.email,
         photos: this.state.photos,
         characteristics: this.state.characteristics
-      },
-      headers: {
-      //   'content-type': 'application/json',
-      //   Accept: 'application/json'
-        Authorization: this.props.token
       }
     })
       .then((status) => {
@@ -159,11 +155,12 @@ class NewReview extends React.Component {
     const trackClicks = this.props.trackClicks;
     // Modal only displayed if Add Review button is clicked
     var modal;
+    console.log(charKeys)
     if (!this.state.showModal) {
       modal = null;
     } else {
       // Define Characteristics (dynamically) based on existing meta data
-      var charKeys = Object.keys(this.props.meta.characteristics);
+      var charKeys = Object.keys(this.props.meta.characteristics).slice(0, Object.keys(this.props.meta.characteristics).length - 1);
       var charRef = {
         Size: ['A size too small', 'Half a size too small', 'Perfect', 'Half a size too big', 'A size too wide'],
         Width: ['Too narrow', 'Slightly narrow', 'Perfect', 'Slightly wide', 'Too wide'],

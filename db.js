@@ -89,10 +89,8 @@ Reviews.getReviews = (id) => {
   return Reviews.find({product_id: id}, (err, docs) => {
     if (err) {
       throw err;
-    } else {
-      return docs;
     }
-  }).clone();
+  });
 }
 
 Reviews.getReviewMeta = (productId) => {
@@ -177,27 +175,6 @@ Reviews.submitReview = async (reviewObj) => {
   var id = await Reviews.estimatedDocumentCount({}) + 1;
   reviewObj.id = id;
   Reviews.create(reviewObj, (err) => {
-    if (err) {
-      throw err;
-    } else {
-      console.log('Success!')
-    }
-  })
-}
-
-Reviews.markReported = (reviewId) => {
-  //not updating in DB
-    return Reviews.updateOne({id: reviewId}, {reported: 'true'}, (err, doc) => {
-      if (err) {
-        reject(err);
-      } else {
-        return doc;
-      }
-    })
-}
-
-Reviews.submitReview = (reviewObj) => {
-  Review.create(reviewObj, (err) => {
     if (err) {
       throw err;
     } else {

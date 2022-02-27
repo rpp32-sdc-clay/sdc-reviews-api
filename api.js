@@ -26,7 +26,6 @@ app.get('/reviews/:product_id', (req, res) => {
       res.sendStatus(500)
     })
     .then((data) => {
-      console.log(data)
       res.send(data);
     })
 })
@@ -53,7 +52,7 @@ app.post('/reviews', (req, res) => {
     resolve(database.Reviews.submitReview(req.body));
   })
   .then((data) => {
-    console.log(data)
+    res.end();
   })
 })
 

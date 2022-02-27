@@ -17,7 +17,7 @@ class RatingBreakdown extends React.Component {
       divisor += numOfRatings;
       sum += rating * numOfRatings;
     }
-    return sum/divisor;
+    return Math.round((sum/divisor) * 100) / 100;
     // // reviews.forEach((review) => {
     // //   avg += review.rating;
     // // })
