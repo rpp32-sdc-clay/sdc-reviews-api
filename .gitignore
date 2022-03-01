@@ -109,3 +109,4 @@ notes.rtf
 *.json
 *.pem
 dump
+newrelic.js
