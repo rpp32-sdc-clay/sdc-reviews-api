@@ -1,6 +1,7 @@
 const express = require('express');
 const _ = require('underscore');
 const path = require('path');
+const newRelic = require('newrelic');
 const app = express()
 const port = 3000
 const morgan = require('morgan');
@@ -42,7 +43,6 @@ app.get('/reviews/meta/:product_id', (req, res) => {
       res.sendStatus(500)
     })
     .then((data) => {
-      console.log(data)
       res.send(data);
     })
 })
@@ -86,6 +86,6 @@ app.put('/reviews/:review_id/report', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Listening at http://127.0.0.1:${port}`)
+  console.log(`Listening at http://localhost:${port}`)
 })
 module.exports.app = app;
