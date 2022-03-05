@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('underscore');
 
-mongoose.connect('mongodb://localhost:27017/sdc', {useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true})
+mongoose.connect('mongodb://localhost:27017/sdc', {useUnifiedTopology: true, useNewUrlParser: true})
 const db = mongoose.connection;
 
 db.on('open', () => {
@@ -15,12 +15,9 @@ db.on('error', () => {
 const reviewSchema = new mongoose.Schema({
   id: {
     type: Number,
-    required: true,
-    unique : true
   },
   product_id: {
     type: Number,
-    required: true
   },
   reviewer_name: String,
   date: {
@@ -29,11 +26,9 @@ const reviewSchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
-    required: true
   },
   summary: {
     type: String,
-    required: true
   },
   body: String,
   response: String,
@@ -44,12 +39,10 @@ const reviewSchema = new mongoose.Schema({
   photos: [
     {
       photo_id: {
-        type: Number,
-        required: true
+        type: Number
       },
       url: {
-        type: String,
-        required: true
+        type: String
       }
     }
   ],
