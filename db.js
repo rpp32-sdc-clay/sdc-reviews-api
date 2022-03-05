@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('underscore');
 
-mongoose.connect('mongodb://localhost:27017/sdc', {useUnifiedTopology: true, useCreateIndex: true, useNewUrlParser: true})
+mongoose.connect('mongodb://127.0.0.1:27017/sdc', {useUnifiedTopology: true, useNewUrlParser: true})
 const db = mongoose.connection;
 
 db.on('open', () => {

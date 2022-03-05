@@ -61,21 +61,5 @@ export default function main() {
       },
     })
     sleep(73)
-
-    response = http.post(
-      'http://localhost:3000/reviews',
-      '{"product_id":12,"rating":5,"summary":"Amazing!","body":"TestTestTestTestTestTestTestTestTestTestTestTestTest","recommend":true,"name":"Chell","email":"chell@chell.com","photos":[],"characteristics":{"39":3,"40":3,"41":5,"42":5}}',
-      {
-        headers: {
-          accept: 'application/json, text/plain, */*',
-          authorization: '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',
-          'content-type': 'application/json',
-          dnt: '1',
-          'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="98", "Google Chrome";v="98"',
-          'sec-ch-ua-mobile': '?0',
-          'sec-ch-ua-platform': '"macOS"',
-        },
-      }
-    )
   })
 }
