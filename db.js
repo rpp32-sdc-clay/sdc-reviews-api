@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('underscore');
 
-mongoose.connect('mongodb://127.0.0.1:27017/sdc', {useUnifiedTopology: true, useNewUrlParser: true})
+mongoose.connect('mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.2.2', { useUnifiedTopology: true, useNewUrlParser: true })
 const db = mongoose.connection;
 
 db.on('open', () => {
