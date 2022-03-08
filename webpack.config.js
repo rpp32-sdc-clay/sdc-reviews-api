@@ -7,7 +7,7 @@ dotenv.config();
 
 module.exports = {
   entry: path.resolve(__dirname, "client", "src", 'index.js'),
-  output: { path: path.resolve(__dirname, "client", "dist") },
+  output: { path: path.resolve(__dirname, "client", "dist"), filename: "main.js" },
   mode: 'development',
   plugins: [
     new webpack.DefinePlugin({

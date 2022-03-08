@@ -13,7 +13,8 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use("/", express.static(path.join(__dirname, 'client', 'dist')));
-app.get('/', (req, res) => {
+
+app.get("/", (req, res) => {
   res.end()
 })
 
