@@ -23,13 +23,15 @@ class RR extends React.Component {
     this.moreReviews = this.moreReviews.bind(this);
     this.ratingClick = this.ratingClick.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
+    this.api = 'http://ec2-44-202-232-124.compute-1.amazonaws.com:3000'
   }
 
   componentDidMount() {
     var current = this.props.currentProduct;
     // axios.defaults.headers.common['Authorization'] = this.props.token;
-    axios.get(`/reviews/${current}`)
+    axios.get(`${this.api}/reviews/${current}`)
     .then((results) => {
+      console.log(results)
       this.setState({reviews: results.data})
       if (results.data.results.length > this.state.count - 1) {
         let limitResults = results.data.results;
@@ -60,7 +62,7 @@ class RR extends React.Component {
       console.log(`API get /products/${this.props.currentProduct} failed: `, err);
     })
 
-    axios.get(`/reviews/meta/${this.props.currentProduct}`)
+    axios.get(`${this.api}/reviews/meta/${this.props.currentProduct}`)
       .then((results) => {
         this.setState({
           meta: results.data

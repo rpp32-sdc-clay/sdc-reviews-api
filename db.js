@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('underscore');
 
-mongoose.connect('mongodb://localhost:27017/sdc', {useUnifiedTopology: true, useNewUrlParser: true})
+mongoose.connect('mongodb://3.82.157.98:27017/sdc', {useUnifiedTopology: true, useNewUrlParser: true})
 const db = mongoose.connection;
 
 db.on('open', () => {
@@ -86,7 +86,7 @@ Reviews.getReviews = (id) => {
     if (err) {
       throw err;
     }
-  });
+  }).clone()
 }
 
 Reviews.getReviewMeta = (productId) => {
