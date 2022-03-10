@@ -40,9 +40,9 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Overview apiUrl={this.apiUrl} token={process.env.API_KEY} currentProduct={this.state.currentProduct} trackClicks={this.trackClicks} />
+        {/* <Overview apiUrl={this.apiUrl} token={process.env.API_KEY} currentProduct={this.state.currentProduct} trackClicks={this.trackClicks} />
         <Related apiUrl={this.apiUrl} token={process.env.API_KEY} currentProduct={this.state.currentProduct} trackClicks={this.trackClicks} />
-        <QandA apiUrl={this.apiUrl} token={process.env.API_KEY} currentProduct={this.state.currentProduct} trackClicks={this.trackClicks} />
+        <QandA apiUrl={this.apiUrl} token={process.env.API_KEY} currentProduct={this.state.currentProduct} trackClicks={this.trackClicks} /> */}
         <RR apiUrl={this.apiUrl} token={process.env.API_KEY} currentProduct={this.state.currentProduct} trackClicks={this.trackClicks} />
       </div>
     )
