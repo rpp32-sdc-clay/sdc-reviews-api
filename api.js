@@ -11,7 +11,7 @@ const bodyParser = require('body-parser');
 const database = require('./db.js')
 
 app.use(cors());
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use("/", expressStaticGzip(path.join(__dirname, 'client', 'dist'), {
   enableBrotli: true
