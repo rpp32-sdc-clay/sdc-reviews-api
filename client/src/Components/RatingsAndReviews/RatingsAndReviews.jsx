@@ -29,7 +29,7 @@ class RR extends React.Component {
   componentDidMount() {
     var current = this.props.currentProduct;
     // axios.defaults.headers.common['Authorization'] = this.props.token;
-    axios.get(`${this.api}/reviews/${current}`)
+    axios.get(`/reviews/${current}`)
     .then((results) => {
       console.log(results)
       this.setState({reviews: results.data})
@@ -62,7 +62,7 @@ class RR extends React.Component {
       console.log(`API get /products/${this.props.currentProduct} failed: `, err);
     })
 
-    axios.get(`${this.api}/reviews/meta/${this.props.currentProduct}`)
+    axios.get(`/reviews/meta/${this.props.currentProduct}`)
       .then((results) => {
         this.setState({
           meta: results.data

@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const _ = require('underscore');
 
-const dbip = '35.171.19.239';
-
-mongoose.connect(`mongodb://${dbip}/sdc`, {useUnifiedTopology: true, useNewUrlParser: true})
+mongoose.connect('mongodb://52.86.22.24:27017/sdc', {useUnifiedTopology: true, useNewUrlParser: true})
 const db = mongoose.connection;
 
 db.on('open', () => {
