@@ -1,6 +1,7 @@
 const express = require('express');
 const _ = require('underscore');
 const path = require('path');
+const expressStaticGzip = require('express-static-gzip');
 const newRelic = require('newrelic');
 const app = express()
 const port = 3000
@@ -12,7 +13,9 @@ const database = require('./db.js')
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use("/", express.static(path.join(__dirname, 'client', 'dist')));
+app.use("/", expressStaticGzip(path.join(__dirname, 'client', 'dist'), {
+  enableBrotli: true
+}));
 
 app.get("/", (req, res) => {
   res.end()
