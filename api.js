@@ -90,9 +90,9 @@ app.put('/reviews/:review_id/report', (req, res) => {
 })
 
 
-app.get('/loaderio-b3ac7883eee3add2a5bb8df726086025', (req, res) => {
+app.get('/loaderio-f9541dc41ce3b2e51753dafd7b7949e9', (req, res) => {
   //loader.io route
-  res.sendFile(__dirname + '/loaderio-b3ac7883eee3add2a5bb8df726086025.txt')
+  res.sendFile(__dirname + '/loaderio-f9541dc41ce3b2e51753dafd7b7949e9.txt')
 })
 
 app.listen(port, () => {
