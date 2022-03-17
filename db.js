@@ -1,7 +1,8 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 const _ = require('underscore');
 
-mongoose.connect('mongodb://52.86.22.24:27017/sdc', {useUnifiedTopology: true, useNewUrlParser: true})
+mongoose.connect(`mongodb+srv://doadmin:${process.env.DB_PW}@sdc-reviews-db-4aec7897.mongo.ondigitalocean.com/sdc?authSource=admin&replicaSet=sdc-reviews-db&tls=true&tlsCAFile=ca-certificate.crt`, {useUnifiedTopology: true, useNewUrlParser: true})
 const db = mongoose.connection;
 
 db.on('open', () => {

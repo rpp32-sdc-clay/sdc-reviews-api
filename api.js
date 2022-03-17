@@ -90,6 +90,6 @@ app.put('/reviews/:review_id/report', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Listening at http://54.167.102.161:${port}`)
+  console.log(`Listening at port 3000`)
 })
 module.exports.app = app;

@@ -23,7 +23,6 @@ class RR extends React.Component {
     this.moreReviews = this.moreReviews.bind(this);
     this.ratingClick = this.ratingClick.bind(this);
     this.resetFilters = this.resetFilters.bind(this);
-    this.api = 'http://ec2-44-202-232-124.compute-1.amazonaws.com:3000'
   }
 
   componentDidMount() {

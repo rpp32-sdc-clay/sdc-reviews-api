@@ -10,7 +10,6 @@ class App extends React.Component {
     this.state = {
       currentProduct: 12
     }
-    this.apiUrl = 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rpp';
     this.trackClicks = this.trackClicks.bind(this);
   }
 
